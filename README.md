@@ -1,6 +1,6 @@
 # Smart Cube
 
-![](screenshot.png)
+[![](screenshot.png)](https://oyooyo.github.io/smart_cube)
 
 A [progressive web app](https://en.wikipedia.org/wiki/Progressive_web_application) for solving the *Mi Smart Magic Cube* (a Rubik's cube with Bluetooth LE from Xiaomi) that simply always shows the next step for solving the cube.
 
