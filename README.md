@@ -2,11 +2,13 @@
 
 [![](screenshot.png)](https://oyooyo.github.io/smart_cube)
 
-A [progressive web app](https://en.wikipedia.org/wiki/Progressive_web_application) for solving the *Mi Smart Magic Cube* (a Rubik's cube with Bluetooth LE from Xiaomi) that simply always shows the next step for solving the cube.
+A tiny [progressive web app](https://en.wikipedia.org/wiki/Progressive_web_application) for solving the *Mi Smart Magic Cube* (a Rubik's cube with Bluetooth LE from Xiaomi) that simply always shows the next step for solving the cube.
 
 Requires a webbrowser that supports the *[Web Bluetooth API](https://webbluetoothcg.github.io/web-bluetooth/)*. Right now, recent Chrome-based webbrowsers are the only ones that do.
 
 To use it, visit [https://oyooyo.github.io/smart_cube](https://oyooyo.github.io/smart_cube).
+
+Be aware that while the app uses [Herbert Kociemba's two-phase algorithm](http://kociemba.org/cube.htm), one of the most advanced algorithms for solving rubik's cubes, the shown solution will often not be the shortest possible.
 
 ## Acknowledgements
 
