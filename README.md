@@ -1,6 +1,8 @@
 # Smart Cube
 
-A [web app](https://en.wikipedia.org/wiki/Progressive_web_application) for solving the *Mi Smart Magic Cube* (a Rubik's cube with Bluetooth LE from Xiaomi) that simply always shows the next step for solving the cube.
+![](screenshot.png)
+
+A [progressive web app](https://en.wikipedia.org/wiki/Progressive_web_application) for solving the *Mi Smart Magic Cube* (a Rubik's cube with Bluetooth LE from Xiaomi) that simply always shows the next step for solving the cube.
 
 Requires a webbrowser that supports the *[Web Bluetooth API](https://webbluetoothcg.github.io/web-bluetooth/)*. Right now, recent Chrome-based webbrowsers are the only ones that do.
 
