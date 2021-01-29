@@ -132,7 +132,7 @@ const CubeDisplay = class extends React.Component {
 		this.arrows_object = create_arrows_object();
 		this.rotation_object = (new Group());
 		this.rotation_object.add(this.arrows_object);
-		this.rotation_object.add(new Mesh((new BoxGeometry(3.01, 1.01, 3.01)), (new MeshBasicMaterial({color:0xFFFFFF, opacity:0.5, transparent:true}))));
+		this.rotation_object.add(new Mesh((new BoxGeometry(3.01, 1.01, 3.01)), (new MeshBasicMaterial({color:0xFFFFFF, opacity:0.75, transparent:true}))));
 		this.frame_index = 0;
 	}
 	componentDidMount() {
