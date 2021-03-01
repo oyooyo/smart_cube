@@ -158,4 +158,6 @@ const oyooyo_to_cubejs_mappings = [
 const convert_oyooyo_facelets_to_cubejs_facelets = (oyooyo_facelets) =>
 	convert_facelets(Array.from(oyooyo_facelets), oyooyo_to_cubejs_mappings).join('')
 
-export {convert_decoded_bytes_to_wachino_facelets, convert_oyooyo_facelets_to_cubejs_facelets, convert_wachino_facelets_to_oyooyo_facelets, decode_encoded_bytes};
+const OYOYO_SOLVED_FACELETS = 'UUUUUUUUULLLLLLLLLFFFFFFFFFRRRRRRRRRBBBBBBBBBDDDDDDDDD';
+
+export {convert_decoded_bytes_to_wachino_facelets, convert_oyooyo_facelets_to_cubejs_facelets, convert_wachino_facelets_to_oyooyo_facelets, decode_encoded_bytes, OYOYO_SOLVED_FACELETS};

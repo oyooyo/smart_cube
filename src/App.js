@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import React from 'react';
+import React, {useState} from 'react';
 import {async_subscribe_to_oyooyo_facelets} from './mi_smart_magic_cube_webbluetooth';
-import {convert_oyooyo_facelets_to_cubejs_facelets} from './mi_smart_magic_cube_utils';
+import {convert_oyooyo_facelets_to_cubejs_facelets, OYOYO_SOLVED_FACELETS} from './mi_smart_magic_cube_utils';
 import CubeDisplay from './CubeDisplay';
 const CubeJS = window.Cube;
 
@@ -16,6 +16,65 @@ const PleaseWaitMessage = ({children}) =>
 		</div>
 	</div>
 
+const format_value = (v, d, m) => {
+	if (m > 0) {
+		const digits = (Math.floor(Math.log10(m - 1)) + 1);
+		return `${Array(digits).fill('0').join('')}${Math.floor(v / d) % m}`.slice(-digits);
+	} else {
+		return `${Math.floor(v / d)}`;
+	}
+}
+
+const format_time = (time) =>
+	`${format_value(time, 1000)}.${format_value(time, 10, 100)} seconds (${format_value(time, 60000)}:${format_value(time, 1000, 60)}.${format_value(time, 10, 100)} minutes)`
+
+const MeasureTimeButton = ({cube_state}) => {
+	const [state, set_state] = useState({id:'inactive'});
+	const current_time = Date.now();
+	let on_button_click, button_text;
+	switch (state.id) {
+		case 'inactive':
+			on_button_click = () => {
+				set_state({id:'waiting_for_first_move', start_cube_state:cube_state});
+			}
+			button_text = 'Click here to measure Time';
+			break;
+		case 'waiting_for_first_move':
+			if (cube_state !== state.start_cube_state) {
+				set_state({id:'waiting_for_solved', start_cube_state:state.start_cube_state, start_time:current_time});
+			}
+			on_button_click = () => {
+				set_state({id:'inactive'});
+			}
+			button_text = 'Waiting for first move...';
+			break;
+		case 'waiting_for_solved':
+			if (cube_state === OYOYO_SOLVED_FACELETS) {
+				set_state({id:'solved', start_cube_state:cube_state, start_time:state.start_time, finish_time:current_time});
+			}
+			on_button_click = () => {
+				set_state({id:'waiting_for_first_move'});
+			}
+			button_text = `Current time: ${format_time(current_time - state.start_time)}`;
+			break;
+		case 'solved':
+			on_button_click = () => {
+				set_state({id:'waiting_for_first_move'});
+			}
+			button_text = `Solved in: ${format_time(state.finish_time - state.start_time)}`;
+			break;
+		default:
+			throw (new Error('Invalid state'));
+	}
+	return (
+		<div id="measure_time_button" className="d-grid mx-auto mt-3">
+			<button className="btn btn-primary" type="button" onClick={on_button_click}>
+				{button_text}
+			</button>
+		</div>
+	);
+}
+
 const CubeSolver = class extends React.Component {
 	constructor(props) {
 		super(props);
@@ -26,7 +85,7 @@ const CubeSolver = class extends React.Component {
 		};
 	}
 	componentDidMount() {
-		CubeJS.asyncInit('cubejs/worker.js', () => {
+		CubeJS.asyncInit(`${window.location.href}/cubejs/worker.js`, () => {
 			this.setState({id:'waiting_for_user_gesture'});
 		});
 	}
@@ -101,17 +160,24 @@ const CubeSolver = class extends React.Component {
 				);
 			case 'solving':
 				return (
-					<PleaseWaitMessage>
-						Solving...
-					</PleaseWaitMessage>
+					<>
+						<CubeDisplay state={this.state.facelets} />
+						<MeasureTimeButton cube_state={this.state.facelets} />
+					</>
 				);
 			case 'displaying_next_rotation':
 				return (
-					<CubeDisplay state={this.state.facelets} rotation={this.state.rotations[0]} />
+					<>
+						<CubeDisplay state={this.state.facelets} rotation={this.state.rotations[0]} />
+						<MeasureTimeButton cube_state={this.state.facelets} />
+					</>
 				);
 			case 'solved':
 				return (
-					<CubeDisplay state={this.state.facelets} />
+					<>
+						<CubeDisplay state={this.state.facelets} />
+						<MeasureTimeButton cube_state={this.state.facelets} />
+					</>
 				);
 			default:
 				throw (new Error(`Invalid state ID ${this.state.id}`));
