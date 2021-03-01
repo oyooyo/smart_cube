@@ -53,13 +53,13 @@ const MeasureTimeButton = ({cube_state}) => {
 				set_state({id:'solved', start_cube_state:cube_state, start_time:state.start_time, finish_time:current_time});
 			}
 			on_button_click = () => {
-				set_state({id:'waiting_for_first_move'});
+				set_state({id:'waiting_for_first_move', start_cube_state:cube_state});
 			}
 			button_text = `Current time: ${format_time(current_time - state.start_time)}`;
 			break;
 		case 'solved':
 			on_button_click = () => {
-				set_state({id:'waiting_for_first_move'});
+				set_state({id:'waiting_for_first_move', start_cube_state:cube_state});
 			}
 			button_text = `Solved in: ${format_time(state.finish_time - state.start_time)}`;
 			break;
