@@ -41,7 +41,7 @@ const MeasureTimeButton = ({cube_state}) => {
 			break;
 		case 'waiting_for_first_move':
 			if (cube_state !== state.start_cube_state) {
-				set_state({id:'waiting_for_solved', start_cube_state:state.start_cube_state, start_time:current_time});
+				set_state({id:'waiting_for_solved', start_cube_state:state.start_cube_state, start_time:current_time, moves:0, last_cube_state:cube_state});
 			}
 			on_button_click = () => {
 				set_state({id:'inactive'});
@@ -49,19 +49,23 @@ const MeasureTimeButton = ({cube_state}) => {
 			button_text = 'Waiting for first move...';
 			break;
 		case 'waiting_for_solved':
-			if (cube_state === OYOYO_SOLVED_FACELETS) {
-				set_state({id:'solved', start_cube_state:cube_state, start_time:state.start_time, finish_time:current_time});
+			if (cube_state !== state.last_cube_state) {
+				if (cube_state === OYOYO_SOLVED_FACELETS) {
+					set_state({id:'solved', start_cube_state:cube_state, start_time:state.start_time, finish_time:current_time, moves:(state.moves + 1)});
+				} else {
+					set_state({id:'waiting_for_solved', start_cube_state:state.start_cube_state, start_time:state.start_time, moves:(state.moves + 1), last_cube_state:cube_state});
+				}
 			}
 			on_button_click = () => {
 				set_state({id:'waiting_for_first_move', start_cube_state:cube_state});
 			}
-			button_text = `Current time: ${format_time(current_time - state.start_time)}`;
+			button_text = `Current time: ${format_time(current_time - state.start_time)}, ${state.moves} moves`;
 			break;
 		case 'solved':
 			on_button_click = () => {
 				set_state({id:'waiting_for_first_move', start_cube_state:cube_state});
 			}
-			button_text = `Solved in: ${format_time(state.finish_time - state.start_time)}`;
+			button_text = `Solved in: ${format_time(state.finish_time - state.start_time)}, ${state.moves} moves`;
 			break;
 		default:
 			throw (new Error('Invalid state'));
