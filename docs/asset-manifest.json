@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/smart_cube/static/css/main.fc71c178.chunk.css",
-    "main.js": "/smart_cube/static/js/main.9ab1097f.chunk.js",
-    "main.js.map": "/smart_cube/static/js/main.9ab1097f.chunk.js.map",
+    "main.js": "/smart_cube/static/js/main.3dd829c5.chunk.js",
+    "main.js.map": "/smart_cube/static/js/main.3dd829c5.chunk.js.map",
     "runtime-main.js": "/smart_cube/static/js/runtime-main.873253aa.js",
     "runtime-main.js.map": "/smart_cube/static/js/runtime-main.873253aa.js.map",
     "static/css/2.58dcbf32.chunk.css": "/smart_cube/static/css/2.58dcbf32.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.58dcbf32.chunk.css",
     "static/js/2.8a05c7ff.chunk.js",
     "static/css/main.fc71c178.chunk.css",
-    "static/js/main.9ab1097f.chunk.js"
+    "static/js/main.3dd829c5.chunk.js"
   ]
 }

@@ -143,7 +143,9 @@ const CubeDisplay = class extends React.Component {
 		const camera = (new PerspectiveCamera(60, (width / height), 0.1, 100));
 		camera.up.set(0, 0, 1);
 		camera.position.set(4, -5, 4);
-		const renderer = (new WebGLRenderer());
+		const renderer = (new WebGLRenderer({
+			antialias: true,
+		}));
 		renderer.setSize(width, height);
 		const canvas_element = renderer.domElement;
 		mount.appendChild(canvas_element);
